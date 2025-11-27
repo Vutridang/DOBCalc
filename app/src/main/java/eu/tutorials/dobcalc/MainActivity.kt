@@ -12,6 +12,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private var tvSelectedDate: TextView? = null
+    private var tvAgeInMinutes : TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val btnDatePicker: Button = findViewById(R.id.btnDatePicker)
         tvSelectedDate = findViewById(R.id.tvSelectedDate)
+        tvAgeInMinutes = findViewById(R.id.tvAgeInMinutes)
 
         btnDatePicker.setOnClickListener {
             clickDatePicker()
@@ -47,6 +49,16 @@ class MainActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
 
                 val theDate = sdf.parse(selectedDate)
+
+                val selectdDateInMinutes = theDate.time / 60000
+
+                val currentDate = sdf.parse(sdf.format(System.currentTimeMillis()))
+
+                val currentDateInMinutes = currentDate.time/ 60000
+
+                val differenceInMinutes = currentDateInMinutes - selectdDateInMinutes
+
+                tvAgeInMinutes?.text = differenceInMinutes.toString()
             },
             year,
             month,
