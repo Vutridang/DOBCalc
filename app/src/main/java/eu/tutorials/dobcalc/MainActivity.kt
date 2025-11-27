@@ -2,18 +2,21 @@ package eu.tutorials.dobcalc
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
+    private var tvSelectedDate: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val btnDatePicker: Button = findViewById(R.id.btnDatePicker)
+        tvSelectedDate = findViewById(R.id.tvSelectedDate)
 
         btnDatePicker.setOnClickListener {
             clickDatePicker()
@@ -34,6 +37,10 @@ class MainActivity : AppCompatActivity() {
                     "Year was $selectedYear, month was ${selectedMonth + 1}, day of month was $selectedDayOfMont",
                     Toast.LENGTH_LONG
                 ).show()
+
+                val selectedDate = "$selectedDayOfMont/${selectedMonth+1}/$selectedYear"
+
+                tvSelectedDate?.setText(selectedDate)
             },
             year,
             month,
